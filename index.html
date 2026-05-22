@@ -796,6 +796,15 @@
                     formatterInput: '',
                     formatterOutput: '',
                     
+                    // Dictionary
+                    dictSearch: '',
+                    hiddenUnits: [],
+                    dictNewHanzi: '',
+                    dictNewPinyin: '',
+                    dictNewEnglish: '',
+                    unitTrash: {},
+                    unitTrashNames: {},
+                    
                     // SRS (Spaced Repetition System)
                     srsData: {},
                     
@@ -1595,7 +1604,7 @@
         ======================================== */
         const PRESET_UNITS = {
             hobbies: {
-                name: 'Hobbies',
+                name: 'Ch2 U3 – Hobbies',
                 words: [
                     { hanzi: '爱好', pinyin: 'ài hào', english: 'hobby' },
                     { hanzi: '唱歌', pinyin: 'chàng gē', english: 'to sing/singing' },
@@ -1618,7 +1627,7 @@
                 ]
             },
             sports: {
-                name: 'Sports & Activities',
+                name: 'Ch2 U3 – Sports & Activities',
                 words: [
                     { hanzi: '喜欢', pinyin: 'xǐ huan', english: 'to like' },
                     { hanzi: '运动', pinyin: 'yùn dòng', english: 'sports/exercise' },
@@ -1642,7 +1651,7 @@
                 ]
             },
             places: {
-                name: 'Places',
+                name: 'Ch2 U3 – Places',
                 words: [
                     { hanzi: '图书馆', pinyin: 'tú shū guǎn', english: 'library' },
                     { hanzi: '餐厅', pinyin: 'cān tīng', english: 'restaurant/dining hall' },
@@ -1652,7 +1661,7 @@
                 ]
             },
             time: {
-                name: 'Time Expressions',
+                name: 'Ch2 U3 – Time Expressions',
                 words: [
                     { hanzi: '早上', pinyin: 'zǎo shang', english: 'morning (6-9am)' },
                     { hanzi: '上午', pinyin: 'shàng wǔ', english: 'morning (9-11:30am)' },
@@ -1669,7 +1678,7 @@
                 ]
             },
             weekend: {
-                name: 'Weekend & Frequency',
+                name: 'Ch2 U3 – Weekend & Frequency',
                 words: [
                     { hanzi: '周末', pinyin: 'zhōu mò', english: 'weekend' },
                     { hanzi: '常常', pinyin: 'cháng cháng', english: 'often' },
@@ -1690,7 +1699,7 @@
                 ]
             },
             dailyActivities: {
-                name: 'Daily Activities',
+                name: 'Ch2 U3 – Daily Activities',
                 words: [
                     { hanzi: '吃', pinyin: 'chī', english: 'to eat' },
                     { hanzi: '早饭', pinyin: 'zǎo fàn', english: 'breakfast' },
@@ -1704,6 +1713,150 @@
                     { hanzi: '到学校', pinyin: 'dào xué xiào', english: 'arrive to school' },
                     { hanzi: '回家', pinyin: 'huí jiā', english: 'go home' },
                     { hanzi: '睡觉', pinyin: 'shuì jiào', english: 'sleep' }
+                ]
+            },
+            westernFood: {
+                name: 'Ch2 U4.1 – Western Food',
+                words: [
+                    { hanzi: '吃', pinyin: 'chī', english: 'to eat' },
+                    { hanzi: '喝', pinyin: 'hē', english: 'to drink' },
+                    { hanzi: '好吃', pinyin: 'hǎo chī', english: 'tasty (food)' },
+                    { hanzi: '不好吃', pinyin: 'bù hǎo chī', english: 'nasty (food)' },
+                    { hanzi: '好喝', pinyin: 'hǎo hē', english: 'tasty (drinks)' },
+                    { hanzi: '食物', pinyin: 'shí wù', english: 'food' },
+                    { hanzi: '汉堡包', pinyin: 'hàn bǎo bāo', english: 'hamburger' },
+                    { hanzi: '三明治', pinyin: 'sān míng zhì', english: 'sandwich' },
+                    { hanzi: '热狗', pinyin: 'rè gǒu', english: 'hot dog' },
+                    { hanzi: '冰淇淋', pinyin: 'bīng qí lín', english: 'ice cream' },
+                    { hanzi: '意大利面', pinyin: 'yì dà lì miàn', english: 'pasta' },
+                    { hanzi: '炸鸡', pinyin: 'zhà jī', english: 'fried chicken' },
+                    { hanzi: '薯条', pinyin: 'shǔ tiáo', english: 'french fries' },
+                    { hanzi: '薯片', pinyin: 'shǔ piàn', english: 'potato chips' },
+                    { hanzi: '披萨', pinyin: 'pī sà', english: 'pizza' },
+                    { hanzi: '面包', pinyin: 'miàn bāo', english: 'bread' },
+                    { hanzi: '可乐', pinyin: 'kě lè', english: 'coke' },
+                    { hanzi: '牛奶', pinyin: 'niú nǎi', english: 'milk' },
+                    { hanzi: '咖啡', pinyin: 'kā fēi', english: 'coffee' },
+                    { hanzi: '水', pinyin: 'shuǐ', english: 'water' },
+                    { hanzi: '咸', pinyin: 'xián', english: 'salty' },
+                    { hanzi: '果汁', pinyin: 'guǒ zhī', english: 'fruit juice' },
+                    { hanzi: '身体', pinyin: 'shēn tǐ', english: 'body' },
+                    { hanzi: '想', pinyin: 'xiǎng', english: 'want to' },
+                    { hanzi: '还是', pinyin: 'hái shì', english: 'or (question word)' },
+                    { hanzi: '培根', pinyin: 'péi gēn', english: 'bacon' },
+                    { hanzi: '蛋糕', pinyin: 'dàn gāo', english: 'cake' },
+                    { hanzi: '蛋', pinyin: 'dàn', english: 'egg' },
+                    { hanzi: '吐司', pinyin: 'tǔ sī', english: 'toast' },
+                    { hanzi: '麦片', pinyin: 'mài piàn', english: 'oatmeal' },
+                    { hanzi: '贝果', pinyin: 'bèi guǒ', english: 'bagel' },
+                    { hanzi: '松饼', pinyin: 'sōng bǐng', english: 'waffle' },
+                    { hanzi: '果酱', pinyin: 'guǒ jiàng', english: 'jam' },
+                    { hanzi: '糖果', pinyin: 'táng guǒ', english: 'candy' },
+                    { hanzi: '饼干', pinyin: 'bǐng gān', english: 'cookie/biscuit' },
+                    { hanzi: '巧克力', pinyin: 'qiǎo kè lì', english: 'chocolate' },
+                    { hanzi: '酸奶', pinyin: 'suān nǎi', english: 'yogurt' },
+                    { hanzi: '汽水', pinyin: 'qì shuǐ', english: 'soda' },
+                    { hanzi: '沙拉', pinyin: 'shā lā', english: 'salad' }
+                ]
+            },
+            chineseFood: {
+                name: 'Ch2 U4.2 – Chinese Food',
+                words: [
+                    { hanzi: '包子', pinyin: 'bāo zi', english: 'steamed bun' },
+                    { hanzi: '豆浆', pinyin: 'dòu jiāng', english: 'soy milk' },
+                    { hanzi: '饺子', pinyin: 'jiǎo zi', english: 'dumplings' },
+                    { hanzi: '炒饭', pinyin: 'chǎo fàn', english: 'fried rice' },
+                    { hanzi: '油条', pinyin: 'yóu tiáo', english: 'fried dough sticks' },
+                    { hanzi: '炒面', pinyin: 'chǎo miàn', english: 'fried noodles' },
+                    { hanzi: '虾子', pinyin: 'xiā zi', english: 'shrimp' },
+                    { hanzi: '红茶', pinyin: 'hóng chá', english: 'black tea' },
+                    { hanzi: '绿茶', pinyin: 'lǜ chá', english: 'green tea' },
+                    { hanzi: '珍珠奶茶', pinyin: 'zhēn zhū nǎi chá', english: 'boba/bubble tea' },
+                    { hanzi: '吃过', pinyin: 'chī guò', english: 'have eaten (before)' },
+                    { hanzi: '没吃过', pinyin: 'méi chī guò', english: 'never eaten (before)' },
+                    { hanzi: '喝过', pinyin: 'hē guò', english: 'have drunk (before)' },
+                    { hanzi: '还是', pinyin: 'hái shì', english: 'or' },
+                    { hanzi: '中餐', pinyin: 'zhōng cān', english: 'Chinese food' },
+                    { hanzi: '西餐', pinyin: 'xī cān', english: 'western food' },
+                    { hanzi: '中国城', pinyin: 'zhōng guó chéng', english: 'Chinatown' },
+                    { hanzi: '中国菜', pinyin: 'zhōng guó cài', english: 'Chinese cuisine' }
+                ]
+            },
+            fruits: {
+                name: 'Ch2 U4.3 – Fruits',
+                words: [
+                    { hanzi: '水果', pinyin: 'shuǐ guǒ', english: 'fruits' },
+                    { hanzi: '苹果', pinyin: 'píng guǒ', english: 'apple' },
+                    { hanzi: '香蕉', pinyin: 'xiāng jiāo', english: 'banana' },
+                    { hanzi: '桃子', pinyin: 'táo zi', english: 'peach' },
+                    { hanzi: '菠萝', pinyin: 'bō luó', english: 'pineapple' },
+                    { hanzi: '草莓', pinyin: 'cǎo méi', english: 'strawberry' },
+                    { hanzi: '芒果', pinyin: 'máng guǒ', english: 'mango' },
+                    { hanzi: '西瓜', pinyin: 'xī guā', english: 'watermelon' },
+                    { hanzi: '葡萄', pinyin: 'pú táo', english: 'grape' },
+                    { hanzi: '健康', pinyin: 'jiàn kāng', english: 'healthy' },
+                    { hanzi: '营养', pinyin: 'yíng yǎng', english: 'nutrition' },
+                    { hanzi: '新鲜', pinyin: 'xīn xiān', english: 'fresh' },
+                    { hanzi: '酸', pinyin: 'suān', english: 'sour' },
+                    { hanzi: '甜', pinyin: 'tián', english: 'sweet' },
+                    { hanzi: '苦', pinyin: 'kǔ', english: 'bitter' },
+                    { hanzi: '辣', pinyin: 'là', english: 'spicy' },
+                    { hanzi: '咸', pinyin: 'xián', english: 'salty' },
+                    { hanzi: '一样', pinyin: 'yī yàng', english: 'the same' },
+                    { hanzi: '比', pinyin: 'bǐ', english: 'compare / than' },
+                    { hanzi: '蓝莓', pinyin: 'lán méi', english: 'blueberry' },
+                    { hanzi: '樱桃', pinyin: 'yīng táo', english: 'cherry' },
+                    { hanzi: '柠檬', pinyin: 'níng méng', english: 'lemon' },
+                    { hanzi: '柳橙', pinyin: 'liǔ chéng', english: 'orange (fruit)' },
+                    { hanzi: '猕猴桃', pinyin: 'mí hóu táo', english: 'kiwi' },
+                    { hanzi: '红色', pinyin: 'hóng sè', english: 'red' },
+                    { hanzi: '绿色', pinyin: 'lǜ sè', english: 'green' },
+                    { hanzi: '紫色', pinyin: 'zǐ sè', english: 'purple' },
+                    { hanzi: '黄色', pinyin: 'huáng sè', english: 'yellow' },
+                    { hanzi: '黑色', pinyin: 'hēi sè', english: 'black' },
+                    { hanzi: '白色', pinyin: 'bái sè', english: 'white' },
+                    { hanzi: '橘色', pinyin: 'jú sè', english: 'orange (color)' }
+                ]
+            },
+            fourSeasons: {
+                name: 'Ch2 U5.1 – Four Seasons',
+                words: [
+                    { hanzi: '夏天', pinyin: 'xià tiān', english: 'summer' },
+                    { hanzi: '冬天', pinyin: 'dōng tiān', english: 'winter' },
+                    { hanzi: '秋天', pinyin: 'qiū tiān', english: 'fall/autumn' },
+                    { hanzi: '春天', pinyin: 'chūn tiān', english: 'spring' },
+                    { hanzi: '热', pinyin: 'rè', english: 'hot' },
+                    { hanzi: '冷', pinyin: 'lěng', english: 'cold' },
+                    { hanzi: '暖和', pinyin: 'nuǎn huo', english: 'warm' },
+                    { hanzi: '凉快', pinyin: 'liáng kuai', english: 'cool' },
+                    { hanzi: '非常', pinyin: 'fēi cháng', english: 'extremely' },
+                    { hanzi: '特别', pinyin: 'tè bié', english: 'very/especially' },
+                    { hanzi: '从来不', pinyin: 'cóng lái bù', english: 'never' },
+                    { hanzi: '时候', pinyin: 'shí hòu', english: 'during/while/moment' }
+                ]
+            },
+            weather: {
+                name: 'Ch2 U5.2 – Weather',
+                words: [
+                    { hanzi: '天气', pinyin: 'tiān qì', english: 'weather' },
+                    { hanzi: '温度', pinyin: 'wēn dù', english: 'temperature' },
+                    { hanzi: '最高', pinyin: 'zuì gāo', english: 'highest' },
+                    { hanzi: '最低', pinyin: 'zuì dī', english: 'lowest' },
+                    { hanzi: '左右', pinyin: 'zuǒ yòu', english: 'about/around' },
+                    { hanzi: '度', pinyin: 'dù', english: 'degree' },
+                    { hanzi: '晴天', pinyin: 'qíng tiān', english: 'sunny day' },
+                    { hanzi: '阴天', pinyin: 'yīn tiān', english: 'cloudy/overcast day' },
+                    { hanzi: '多云', pinyin: 'duō yún', english: 'cloudy' },
+                    { hanzi: '少云', pinyin: 'shǎo yún', english: 'few clouds' },
+                    { hanzi: '下雨', pinyin: 'xià yǔ', english: 'rain' },
+                    { hanzi: '下雪', pinyin: 'xià xuě', english: 'snow' },
+                    { hanzi: '风很大', pinyin: 'fēng hěn dà', english: 'windy (adjective)' },
+                    { hanzi: '刮风', pinyin: 'guā fēng', english: 'windy (verb)' },
+                    { hanzi: '打雷', pinyin: 'dǎ léi', english: 'thunder' },
+                    { hanzi: '糟糕', pinyin: 'zāo gāo', english: 'terrible' },
+                    { hanzi: '奇怪', pinyin: 'qí guài', english: 'strange' },
+                    { hanzi: '零下', pinyin: 'líng xià', english: 'below zero' },
+                    { hanzi: '天气预报', pinyin: 'tiān qì yù bào', english: 'weather forecast' }
                 ]
             }
         };
@@ -1810,6 +1963,12 @@
                         break;
                     case 'mistakeReview':
                         content = this.renderMistakeReview();
+                        break;
+                    case 'dictionary':
+                        content = this.renderDictionary();
+                        break;
+                    case 'recover':
+                        content = this.renderRecover();
                         break;
                     default:
                         content = this.renderMenu();
@@ -1973,6 +2132,21 @@
                                     <div class="text-xl font-semibold mb-2">Import</div>
                                     <div class="text-sm" style="color: var(--text-secondary)">Add vocabulary</div>
                                 </button>
+                                <button onclick="app.goToDictionary()" class="card card-interactive">
+                                    <div class="text-4xl mb-3">📖</div>
+                                    <div class="text-xl font-semibold mb-2">Dictionary</div>
+                                    <div class="text-sm" style="color: var(--text-secondary)">Browse all vocab</div>
+                                </button>
+                                <button onclick="app.exportCustomData()" class="card card-interactive">
+                                    <div class="text-4xl mb-3">📦</div>
+                                    <div class="text-xl font-semibold mb-2">Export My Quizzes</div>
+                                    <div class="text-sm" style="color: var(--text-secondary)">Save custom units</div>
+                                </button>
+                                <button onclick="app.goToRecover()" class="card card-interactive">
+                                    <div class="text-4xl mb-3">♻️</div>
+                                    <div class="text-xl font-semibold mb-2">Recover Units</div>
+                                    <div class="text-sm" style="color: var(--text-secondary)">Restore deleted units</div>
+                                </button>
                                 <button onclick="app.goToStats()" class="card card-interactive">
                                     <div class="text-4xl mb-3">📊</div>
                                     <div class="text-xl font-semibold mb-2">Statistics</div>
@@ -2013,18 +2187,27 @@
                             <div class="grid-responsive">
                                 ${Object.entries(allUnits).map(([key, unit]) => {
                                     const isSelected = state.selectedUnits.includes(key);
+                                    const isCustom = key.startsWith('custom_');
                                     return `
-                                        <button 
-                                            onclick="app.toggleUnit('${key}')"
-                                            class="card card-interactive ${isSelected ? 'animate-pulse' : ''}"
-                                            style="${isSelected ? 'border-color: var(--accent-primary); background: var(--accent-light);' : ''}"
-                                        >
-                                            <div class="flex items-center justify-between mb-2">
-                                                <div class="text-xl font-semibold">${unit.name}</div>
-                                                <div class="text-2xl">${isSelected ? '✓' : ''}</div>
-                                            </div>
-                                            <div class="text-sm" style="color: var(--text-secondary)">${unit.words.length} words</div>
-                                        </button>
+                                        <div style="position: relative;">
+                                            <button 
+                                                onclick="app.toggleUnit('${key}')"
+                                                class="card card-interactive ${isSelected ? 'animate-pulse' : ''}"
+                                                style="${isSelected ? 'border-color: var(--accent-primary); background: var(--accent-light);' : ''} width: 100%;"
+                                            >
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <div class="text-xl font-semibold">${unit.name}</div>
+                                                    <div class="text-2xl">${isSelected ? '✓' : ''}</div>
+                                                </div>
+                                                <div class="text-sm" style="color: var(--text-secondary)">${unit.words.length} words${isCustom ? ' · Custom' : ' · Preset'}</div>
+                                            </button>
+                                            <button 
+                                                onclick="event.stopPropagation(); app.deleteCustomUnit('${key}')"
+                                                class="btn btn-error btn-sm"
+                                                style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.25rem 0.5rem; font-size: 0.75rem; z-index: 2;"
+                                                title="Delete unit"
+                                            >🗑️</button>
+                                        </div>
                                     `;
                                 }).join('')}
                             </div>
@@ -2908,8 +3091,11 @@
                         <div class="card">
                             <h2 class="text-2xl font-bold mb-4">Data Management</h2>
                             <div class="flex flex-col gap-3">
+                                <button onclick="app.exportCustomData()" class="btn btn-primary">
+                                    📦 Export My Quizzes
+                                </button>
                                 <button onclick="app.exportData()" class="btn btn-secondary">
-                                    📤 Export All Data
+                                    📤 Export All Data (Full Backup)
                                 </button>
                                 <button onclick="app.importData()" class="btn btn-secondary">
                                     📥 Import Data
@@ -3105,6 +3291,25 @@
                                 <p class="text-sm mt-1" style="color: var(--text-secondary)">Minimize animations and transitions</p>
                             </div>
                         </div>
+
+                        <!-- Data Management -->
+                        <div class="card mb-6">
+                            <h2 class="text-xl font-bold mb-4">Data Management</h2>
+                            <div class="flex flex-col gap-3">
+                                <button onclick="app.exportCustomData()" class="btn btn-primary">
+                                    📦 Export My Quizzes
+                                </button>
+                                <button onclick="app.exportData()" class="btn btn-secondary">
+                                    📤 Export All Data (Full Backup)
+                                </button>
+                                <button onclick="app.importData()" class="btn btn-secondary">
+                                    📥 Import Data
+                                </button>
+                                <button onclick="app.clearAllData()" class="btn btn-error">
+                                    🗑️ Clear All Data
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 `;
             }
@@ -3188,6 +3393,169 @@
                         </div>
                     </div>
                 `;
+            }
+
+            renderRecover() {
+                const state = this.stateManager.state;
+                const hidden = state.hiddenUnits || [];
+                const trash = state.unitTrash || {};
+                const trashNames = state.unitTrashNames || {};
+
+                const hiddenPresets = hidden.map(key => ({
+                    key,
+                    name: PRESET_UNITS[key] ? PRESET_UNITS[key].name : key,
+                    wordCount: PRESET_UNITS[key] ? PRESET_UNITS[key].words.length : 0,
+                    type: 'preset'
+                }));
+
+                const trashedCustom = Object.keys(trash).map(key => ({
+                    key,
+                    name: trashNames[key] || key,
+                    wordCount: (trash[key] || []).length,
+                    type: 'custom'
+                }));
+
+                const allDeleted = [...hiddenPresets, ...trashedCustom];
+
+                let itemsHtml = '';
+                if (allDeleted.length === 0) {
+                    itemsHtml = '<div class="card text-center" style="padding:3rem;">'
+                        + '<div class="text-5xl mb-4">✅</div>'
+                        + '<h2 class="text-xl font-bold mb-2">Nothing deleted</h2>'
+                        + '<p style="color:var(--text-secondary);">Any units you delete will appear here so you can restore them.</p>'
+                        + '</div>';
+                } else {
+                    allDeleted.forEach(function(item) {
+                        const badge = item.type === 'preset'
+                            ? '<span style="background:var(--bg-tertiary);color:var(--text-secondary);font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:600;">Preset</span>'
+                            : '<span style="background:var(--accent-light);color:var(--accent-primary);font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:600;">Custom</span>';
+                        const permBtn = item.type === 'custom'
+                            ? '<button onclick="app.permanentlyDeleteUnit(\'' + item.key + '\')" class="btn btn-error btn-sm">Delete Forever</button>'
+                            : '';
+                        itemsHtml += '<div class="card mb-3" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">'
+                            + '<div style="display:flex;align-items:center;gap:0.75rem;flex:1;min-width:0;">'
+                            + '<div>'
+                            + '<div style="font-weight:700;font-size:1.1rem;">' + item.name + '</div>'
+                            + '<div style="display:flex;gap:0.5rem;align-items:center;margin-top:0.25rem;">'
+                            + badge
+                            + '<span style="font-size:0.85rem;color:var(--text-secondary);">' + item.wordCount + ' words</span>'
+                            + '</div></div></div>'
+                            + '<div style="display:flex;gap:0.5rem;flex-shrink:0;">'
+                            + '<button onclick="app.recoverUnit(\'' + item.key + '\')" class="btn btn-success btn-sm">↩ Restore</button>'
+                            + permBtn
+                            + '</div></div>';
+                    });
+                }
+
+                return '<div class="container animate-fadeIn" style="max-width:700px;">'
+                    + '<div class="flex justify-between items-center mb-6">'
+                    + '<div><h1 class="text-3xl font-bold">♻️ Recover Units</h1>'
+                    + '<p style="color:var(--text-secondary);">' + allDeleted.length + ' deleted unit' + (allDeleted.length !== 1 ? 's' : '') + '</p></div>'
+                    + '<button onclick="app.goToMenu()" class="btn btn-ghost">← Back</button>'
+                    + '</div>'
+                    + '<div class="card mb-6" style="background:var(--warning-light);border-color:var(--warning);padding:1rem;">'
+                    + '<p style="color:var(--text-primary);font-size:0.9rem;">🔄 <strong>Restore</strong> puts a unit back. <strong>Delete Forever</strong> (custom units only) removes it permanently and cannot be undone.</p>'
+                    + '</div>'
+                    + itemsHtml
+                    + '</div>';
+            }
+
+            renderDictionary() {
+                const state = this.stateManager.state;
+                const allUnits = this.getAllUnits();
+                const search = (state.dictSearch || '').toLowerCase();
+                const DICT_KEY = 'custom_dictionary';
+
+                // Build sections from all units PLUS the My Dictionary custom unit even if hidden
+                const dictWords = (state.customUnits && state.customUnits[DICT_KEY]) || [];
+                const unitsToShow = Object.assign({}, allUnits);
+                // Always show My Dictionary section if it has words
+                if (dictWords.length > 0 && !unitsToShow[DICT_KEY]) {
+                    unitsToShow[DICT_KEY] = { name: 'My Dictionary', words: dictWords };
+                }
+
+                const sections = Object.entries(unitsToShow).map(([key, unit]) => {
+                    const words = search
+                        ? unit.words.filter(w =>
+                            w.hanzi.includes(search) ||
+                            w.pinyin.toLowerCase().includes(search) ||
+                            w.english.toLowerCase().includes(search)
+                          )
+                        : unit.words;
+                    return { key, name: unit.name, words, isDict: key === DICT_KEY, isCustom: key.startsWith('custom_') };
+                }).filter(s => s.words.length > 0);
+
+                const totalWords = sections.reduce((sum, s) => sum + s.words.length, 0);
+
+                // Add word form HTML
+                const addForm = '<div class="card mb-6" style="border-color:var(--accent-primary);">'
+                    + '<h2 class="text-lg font-bold mb-3">➕ Add Word to My Dictionary</h2>'
+                    + '<div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:0.5rem;align-items:end;">'
+                    + '<div><label style="font-size:0.8rem;color:var(--text-secondary);display:block;margin-bottom:0.25rem;">汉字</label>'
+                    + '<input type="text" class="input" placeholder="e.g. 猫" value="' + (state.dictNewHanzi || '').replace(/"/g,'&quot;') + '" oninput="app.stateManager.setState({dictNewHanzi:this.value})" data-input-id="dict-hanzi" style="font-size:1.2rem;" /></div>'
+                    + '<div><label style="font-size:0.8rem;color:var(--text-secondary);display:block;margin-bottom:0.25rem;">Pinyin</label>'
+                    + '<input type="text" class="input" placeholder="e.g. māo" value="' + (state.dictNewPinyin || '').replace(/"/g,'&quot;') + '" oninput="app.stateManager.setState({dictNewPinyin:this.value})" data-input-id="dict-pinyin" /></div>'
+                    + '<div><label style="font-size:0.8rem;color:var(--text-secondary);display:block;margin-bottom:0.25rem;">English</label>'
+                    + '<input type="text" class="input" placeholder="e.g. cat" value="' + (state.dictNewEnglish || '').replace(/"/g,'&quot;') + '" oninput="app.stateManager.setState({dictNewEnglish:this.value})" data-input-id="dict-english" /></div>'
+                    + '<button onclick="app.addDictWord()" class="btn btn-primary" style="white-space:nowrap;">Add</button>'
+                    + '</div></div>';
+
+                let sectionsHtml = '';
+                if (sections.length === 0) {
+                    sectionsHtml = '<div class="card text-center" style="padding:3rem;"><div class="text-4xl mb-4">🔍</div><p style="color:var(--text-secondary)">No words match your search.</p></div>';
+                } else {
+                    sections.forEach(function(section) {
+                        let rowsHtml = '';
+                        section.words.forEach(function(word, idx) {
+                            const safeHanzi = word.hanzi.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+                            const stripe = idx % 2 === 1 ? 'background:var(--bg-secondary);' : '';
+                            const deleteBtn = section.isDict
+                                ? '<button onclick="app.removeDictWord(' + idx + ')" class="btn btn-ghost btn-sm" style="padding:0.25rem 0.5rem;color:var(--error);" title="Remove">✕</button>'
+                                : '';
+                            rowsHtml += '<tr style="border-bottom:1px solid var(--border-primary);' + stripe + '">'
+                                + '<td style="padding:0.75rem 1rem;font-size:1.4rem;font-weight:700;">' + word.hanzi + '</td>'
+                                + '<td style="padding:0.75rem 1rem;color:var(--text-secondary);">' + word.pinyin + '</td>'
+                                + '<td style="padding:0.75rem 1rem;">' + word.english + '</td>'
+                                + '<td style="padding:0.75rem 0.5rem;text-align:center;white-space:nowrap;">'
+                                + '<button onclick="app.speakCard(\'' + safeHanzi + '\')" class="btn btn-ghost btn-sm" style="padding:0.25rem 0.5rem;">🔊</button>'
+                                + deleteBtn
+                                + '</td></tr>';
+                        });
+                        const customBadge = section.isDict
+                            ? '<span style="background:var(--success-light);color:var(--success);font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:600;">My Words</span>'
+                            : section.isCustom
+                                ? '<span style="background:var(--accent-light);color:var(--accent-primary);font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:600;">Custom</span>'
+                                : '<span style="background:var(--bg-tertiary);color:var(--text-secondary);font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:9999px;font-weight:600;">Preset</span>';
+                        sectionsHtml += '<div class="mb-8">'
+                            + '<div class="flex items-center gap-3 mb-3">'
+                            + '<h2 class="text-xl font-bold">' + section.name + '</h2>'
+                            + customBadge
+                            + '<span class="text-sm" style="color:var(--text-tertiary);">' + section.words.length + ' words</span>'
+                            + '<div style="flex:1;height:1px;background:var(--border-primary);margin-left:0.5rem;"></div>'
+                            + '</div>'
+                            + '<div class="card" style="padding:0;overflow:hidden;">'
+                            + '<table style="width:100%;border-collapse:collapse;">'
+                            + '<thead><tr style="background:var(--bg-tertiary);border-bottom:1px solid var(--border-primary);">'
+                            + '<th style="padding:0.6rem 1rem;text-align:left;font-size:0.8rem;color:var(--text-secondary);font-weight:600;">汉字</th>'
+                            + '<th style="padding:0.6rem 1rem;text-align:left;font-size:0.8rem;color:var(--text-secondary);font-weight:600;">Pinyin</th>'
+                            + '<th style="padding:0.6rem 1rem;text-align:left;font-size:0.8rem;color:var(--text-secondary);font-weight:600;">English</th>'
+                            + '<th style="padding:0.6rem 0.5rem;text-align:center;font-size:0.8rem;color:var(--text-secondary);font-weight:600;">Actions</th>'
+                            + '</tr></thead>'
+                            + '<tbody>' + rowsHtml + '</tbody>'
+                            + '</table></div></div>';
+                    });
+                }
+
+                return '<div class="container animate-fadeIn" style="max-width:900px;">'
+                    + '<div class="flex justify-between items-center mb-6">'
+                    + '<div><h1 class="text-3xl font-bold">📖 Dictionary</h1>'
+                    + '<p style="color:var(--text-secondary);">' + totalWords + ' words across ' + sections.length + ' sections</p></div>'
+                    + '<button onclick="app.goToMenu()" class="btn btn-ghost">← Back</button>'
+                    + '</div>'
+                    + addForm
+                    + '<div class="mb-6"><input type="text" class="input" placeholder="🔍 Search by 汉字, pinyin, or English…" value="' + (state.dictSearch || '').replace(/"/g, '&quot;') + '" oninput="app.stateManager.setState({dictSearch:this.value})" data-input-id="dict-search" /></div>'
+                    + sectionsHtml
+                    + '</div>';
             }
 
             renderMistakeReview() {
@@ -3386,9 +3754,9 @@
 
             startQuiz(cards) {
                 const shuffled = this.shuffle([...cards]);
-                const quizCards = shuffled.slice(0, 20).map(card => {
-                    const allCards = this.getAllCards();
-                    const otherCards = allCards.filter(c => c.english !== card.english);
+                const quizCards = shuffled.map(card => {
+                    // Use only cards from the selected pool for wrong answers
+                    const otherCards = cards.filter(c => c.english !== card.english);
                     const wrongAnswers = this.shuffle(otherCards)
                         .slice(0, 3)
                         .map(c => c.english);
@@ -4162,6 +4530,122 @@
                 alert(`Unit "${state.unitName}" saved with ${validVocab.length} words!`);
             }
 
+            deleteCustomUnit(unitKey) {
+                if (!confirm('Delete this unit? You can recover it from the Recover page.')) return;
+                const state = this.stateManager.state;
+                const isPreset = !!PRESET_UNITS[unitKey];
+                const selectedUnits = state.selectedUnits.filter(k => k !== unitKey);
+
+                if (isPreset) {
+                    // Soft-delete preset: just hide it
+                    const hiddenUnits = [...(state.hiddenUnits || []), unitKey];
+                    this.stateManager.setState({ hiddenUnits, selectedUnits });
+                } else {
+                    // Soft-delete custom: move to trash
+                    const customUnits = { ...state.customUnits };
+                    const customUnitNames = { ...state.customUnitNames };
+                    const trash = { ...(state.unitTrash || {}) };
+                    const trashNames = { ...(state.unitTrashNames || {}) };
+                    trash[unitKey] = customUnits[unitKey];
+                    trashNames[unitKey] = customUnitNames[unitKey] || unitKey;
+                    delete customUnits[unitKey];
+                    delete customUnitNames[unitKey];
+                    this.stateManager.setState({ customUnits, customUnitNames, unitTrash: trash, unitTrashNames: trashNames, selectedUnits });
+                }
+            }
+
+            recoverUnit(unitKey) {
+                const state = this.stateManager.state;
+                const isPreset = !!PRESET_UNITS[unitKey];
+
+                if (isPreset) {
+                    const hiddenUnits = (state.hiddenUnits || []).filter(k => k !== unitKey);
+                    this.stateManager.setState({ hiddenUnits });
+                } else {
+                    const trash = { ...(state.unitTrash || {}) };
+                    const trashNames = { ...(state.unitTrashNames || {}) };
+                    const customUnits = { ...state.customUnits };
+                    const customUnitNames = { ...state.customUnitNames };
+                    if (trash[unitKey]) {
+                        customUnits[unitKey] = trash[unitKey];
+                        customUnitNames[unitKey] = trashNames[unitKey] || unitKey;
+                        delete trash[unitKey];
+                        delete trashNames[unitKey];
+                    }
+                    this.stateManager.setState({ customUnits, customUnitNames, unitTrash: trash, unitTrashNames: trashNames });
+                }
+            }
+
+            permanentlyDeleteUnit(unitKey) {
+                if (!confirm('Permanently delete this unit? This CANNOT be undone.')) return;
+                const state = this.stateManager.state;
+                const trash = { ...(state.unitTrash || {}) };
+                const trashNames = { ...(state.unitTrashNames || {}) };
+                delete trash[unitKey];
+                delete trashNames[unitKey];
+                this.stateManager.setState({ unitTrash: trash, unitTrashNames: trashNames });
+            }
+
+            goToRecover() {
+                this.stateManager.setState({ mode: 'recover' });
+            }
+
+            addDictWord() {
+                const state = this.stateManager.state;
+                const hanzi = (state.dictNewHanzi || '').trim();
+                const pinyin = (state.dictNewPinyin || '').trim();
+                const english = (state.dictNewEnglish || '').trim();
+
+                if (!hanzi || !pinyin || !english) {
+                    alert('Please fill in all three fields.');
+                    return;
+                }
+
+                const customUnits = { ...state.customUnits };
+                const customUnitNames = { ...state.customUnitNames };
+                const DICT_KEY = 'custom_dictionary';
+
+                if (!customUnits[DICT_KEY]) customUnits[DICT_KEY] = [];
+                customUnits[DICT_KEY] = [...customUnits[DICT_KEY], { hanzi, pinyin, english }];
+                customUnitNames[DICT_KEY] = 'My Dictionary';
+
+                this.stateManager.setState({
+                    customUnits,
+                    customUnitNames,
+                    dictNewHanzi: '',
+                    dictNewPinyin: '',
+                    dictNewEnglish: ''
+                });
+            }
+
+            removeDictWord(index) {
+                const state = this.stateManager.state;
+                const DICT_KEY = 'custom_dictionary';
+                const customUnits = { ...state.customUnits };
+                if (!customUnits[DICT_KEY]) return;
+                customUnits[DICT_KEY] = customUnits[DICT_KEY].filter((_, i) => i !== index);
+                this.stateManager.setState({ customUnits });
+            }
+
+            exportCustomData() {
+                const state = this.stateManager.state;
+                const exportObj = {
+                    customUnits: state.customUnits,
+                    customUnitNames: state.customUnitNames
+                };
+                const blob = new Blob([JSON.stringify(exportObj, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `mandarin-custom-quizzes-${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            goToDictionary() {
+                this.stateManager.setState({ mode: 'dictionary', dictSearch: '' });
+            }
+
             /* ========================================
                SETTINGS ACTIONS
             ======================================== */
@@ -4216,10 +4700,26 @@
                     
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        const success = this.stateManager.importData(e.target.result);
-                        if (success) {
-                            alert('Data imported successfully!');
-                        } else {
+                        // Support both full backup and custom-only export
+                        try {
+                            const parsed = JSON.parse(e.target.result);
+                            // If it's a custom-only export, merge into state
+                            if (parsed.customUnits && !parsed.mode) {
+                                const state = this.stateManager.state;
+                                this.stateManager.setState({
+                                    customUnits: { ...state.customUnits, ...parsed.customUnits },
+                                    customUnitNames: { ...state.customUnitNames, ...parsed.customUnitNames }
+                                });
+                                alert('Custom quizzes imported successfully!');
+                            } else {
+                                const success = this.stateManager.importData(e.target.result);
+                                if (success) {
+                                    alert('Data imported successfully!');
+                                } else {
+                                    alert('Failed to import data. Please check the file format.');
+                                }
+                            }
+                        } catch (err) {
                             alert('Failed to import data. Please check the file format.');
                         }
                     };
@@ -4298,14 +4798,22 @@
             ======================================== */
             getAllUnits() {
                 const state = this.stateManager.state;
-                const allUnits = { ...PRESET_UNITS };
+                const hidden = state.hiddenUnits || [];
+                const allUnits = {};
+
+                // Add preset units (skip hidden ones)
+                Object.entries(PRESET_UNITS).forEach(([key, unit]) => {
+                    if (!hidden.includes(key)) allUnits[key] = unit;
+                });
                 
-                // Add custom units
+                // Add custom units (skip hidden ones)
                 Object.entries(state.customUnits).forEach(([key, words]) => {
-                    allUnits[key] = {
-                        name: state.customUnitNames[key] || key,
-                        words
-                    };
+                    if (!hidden.includes(key)) {
+                        allUnits[key] = {
+                            name: state.customUnitNames[key] || key,
+                            words
+                        };
+                    }
                 });
                 
                 return allUnits;
